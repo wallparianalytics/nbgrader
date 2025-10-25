@@ -1,0 +1,42 @@
+Acosta_Zavaleta_Jose_Manuel
+Alza_Guzman_Andrea_Coral
+Asencios_Clavijo_Gabriela_Shumey
+Claros_Condori_Marife_Mardely
+Enríquez_Martínez_Romina_Sofia
+Huayhuapuma_De_La_Cruz_Anais
+Medina_Mendieta_Maria_Fernanda_Valentina
+Rosales_Alarcon_Alexis_Andre
+Silva_Arzapalo_Rafael
+Terreros_Gutarra_Yamile_Milagros
+
+folders = ['Acosta_Zavaleta_Jose_Manuel','Alza_Guzman_Andrea_Coral','Asencios_Clavijo_Gabriela_Shumey','Claros_Condori_Marife_Mardely','Enríquez_Martínez_Romina_Sofia','Huayhuapuma_De_La_Cruz_Anais','Medina_Mendieta_Maria_Fernanda_Valentina','Rosales_Alarcon_Alexis_Andre','Silva_Arzapalo_Rafael','Terreros_Gutarra_Yamile_Milagros']
+
+
+!nbgrader autograde --student Acosta_Zavaleta_Jose_Manuel S01_D02_A02 --debug
+!nbgrader autograde --student Alza_Guzman_Andrea_Coral S01_D02_A02 --debug
+!nbgrader autograde --student Asencios_Clavijo_Gabriela_Shumey S01_D02_A02 --debug
+!nbgrader autograde --student Claros_Condori_Marife_Mardely S01_D02_A02 --debug
+!nbgrader autograde --student Enríquez_Martínez_Romina_Sofia S01_D02_A02 --debug
+!nbgrader autograde --student Huayhuapuma_De_La_Cruz_Anais S01_D02_A02 --debug
+!nbgrader autograde --student Medina_Mendieta_Maria_Fernanda_ValentinaV
+!nbgrader autograde --student Rosales_Alarcon_Alexis_Andre S01_D02_A02 --debug
+!nbgrader autograde --student Silva_Arzapalo_Rafael S01_D02_A02 --debug
+!nbgrader autograde --student Terreros_Gutarra_Yamile_Milagros S01_D02_A02 --debug
+
+para subir notebooks
+https://drive.google.com/drive/folders/1-62NTbmBBzWNxijWJ3D-2UvKoVwFnqFf?usp=sharing
+
+para ver el feedback
+https://drive.google.com/drive/folders/1--qXKGDzyDiPlhDMonpB8jo9qvqswBlA?usp=sharing
+
+!nbgrader db student remove Acosta_Zavaleta_Jose_Manuel --assignment S01_D02_A02 --force
+!nbgrader db student remove Alza_Guzman_Andrea_Coral --assignment S01_D02_A02 --force
+!nbgrader db student remove Asencios_Clavijo_Gabriela_Shumey --assignment S01_D02_A02 --force
+!nbgrader db student remove Claros_Condori_Marife_Mardely --assignment S01_D02_A02 --force
+!nbgrader db student remove Enríquez_Martínez_Romina_Sofia --assignment S01_D02_A02 --force
+!nbgrader db student remove Huayhuapuma_De_La_Cruz_Anais --assignment S01_D02_A02 --force
+!nbgrader db student remove Medina_Mendieta_Maria_Fernanda_Valentina --assignment S01_D02_A02 --force
+!nbgrader db student remove Rosales_Alarcon_Alexis_Andre --assignment S01_D02_A02 --force
+!nbgrader db student remove Silva_Arzapalo_Rafael --assignment S01_D02_A02 --force
+!nbgrader db student remove Terreros_Gutarra_Yamile_Milagros --assignment S01_D02_A02 --force
+
