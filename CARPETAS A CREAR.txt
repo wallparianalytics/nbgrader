@@ -2,23 +2,23 @@ Acosta_Zavaleta_Jose_Manuel
 Alza_Guzman_Andrea_Coral
 Asencios_Clavijo_Gabriela_Shumey
 Claros_Condori_Marife_Mardely
-Enríquez_Martínez_Romina_Sofia
+Enriquez_Martinez_Romina_Sofia
 Huayhuapuma_De_La_Cruz_Anais
 Medina_Mendieta_Maria_Fernanda_Valentina
 Rosales_Alarcon_Alexis_Andre
 Silva_Arzapalo_Rafael
 Terreros_Gutarra_Yamile_Milagros
 
-folders = ['Acosta_Zavaleta_Jose_Manuel','Alza_Guzman_Andrea_Coral','Asencios_Clavijo_Gabriela_Shumey','Claros_Condori_Marife_Mardely','Enríquez_Martínez_Romina_Sofia','Huayhuapuma_De_La_Cruz_Anais','Medina_Mendieta_Maria_Fernanda_Valentina','Rosales_Alarcon_Alexis_Andre','Silva_Arzapalo_Rafael','Terreros_Gutarra_Yamile_Milagros']
+folders = ['Acosta_Zavaleta_Jose_Manuel','Alza_Guzman_Andrea_Coral','Asencios_Clavijo_Gabriela_Shumey','Claros_Condori_Marife_Mardely','Enriquez_Martinez_Romina_Sofia','Huayhuapuma_De_La_Cruz_Anais','Medina_Mendieta_Maria_Fernanda_Valentina','Rosales_Alarcon_Alexis_Andre','Silva_Arzapalo_Rafael','Terreros_Gutarra_Yamile_Milagros']
 
 
 !nbgrader autograde --student Acosta_Zavaleta_Jose_Manuel S01_D02_A02 --debug
 !nbgrader autograde --student Alza_Guzman_Andrea_Coral S01_D02_A02 --debug
 !nbgrader autograde --student Asencios_Clavijo_Gabriela_Shumey S01_D02_A02 --debug
 !nbgrader autograde --student Claros_Condori_Marife_Mardely S01_D02_A02 --debug
-!nbgrader autograde --student Enríquez_Martínez_Romina_Sofia S01_D02_A02 --debug
+!nbgrader autograde --student Enriquez_Martinez_Romina_Sofia S01_D02_A02 --debug
 !nbgrader autograde --student Huayhuapuma_De_La_Cruz_Anais S01_D02_A02 --debug
-!nbgrader autograde --student Medina_Mendieta_Maria_Fernanda_ValentinaV
+!nbgrader autograde --student Medina_Mendieta_Maria_Fernanda_Valentina S01_D02_A02 --debug
 !nbgrader autograde --student Rosales_Alarcon_Alexis_Andre S01_D02_A02 --debug
 !nbgrader autograde --student Silva_Arzapalo_Rafael S01_D02_A02 --debug
 !nbgrader autograde --student Terreros_Gutarra_Yamile_Milagros S01_D02_A02 --debug
