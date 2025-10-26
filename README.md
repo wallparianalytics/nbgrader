@@ -264,48 +264,93 @@ Asencios_Clavijo_Gabriela_Shumey
 
 #### 🔒 Ocultar Tests a los Estudiantes
 
-**IMPORTANTE:** Para que los estudiantes NO vean el código de los tests en el feedback:
+**⚠️ CRÍTICO:** Para que los estudiantes NO vean el código de los tests en el feedback HTML, debes configurar CORRECTAMENTE los metadatos ANTES de generar el assignment.
 
-**Opción 1: Marcar toda la celda como Grade Cell (Recomendado)**
+**❌ Problema común:** Las celdas de test aparecen visibles en el feedback y los estudiantes pueden copiar las respuestas.
 
-En los metadatos de la celda, marca `"grade": true` y `"locked": true`:
+**✅ Solución:** Marcar las celdas de test con `"locked": true` en los metadatos.
+
+---
+
+**MÉTODO RECOMENDADO: Marcar toda la celda como Grade Cell bloqueada**
+
+**1. En el notebook fuente, cada celda de test debe tener estos metadatos:**
 
 ```json
 {
   "nbgrader": {
     "grade": true,
     "grade_id": "test_suma",
-    "locked": true,
+    "locked": true,         ← CRÍTICO: Debe ser true
     "points": 10,
-    "solution": false
+    "schema_version": 3,
+    "solution": false,
+    "task": false
   }
 }
 ```
 
-**Con esta configuración:**
-- ✅ Los estudiantes NO verán el código del test
-- ✅ Solo verán si pasó o falló el test
-- ✅ Verán los puntos obtenidos
+**2. Cómo editar metadatos en Jupyter:**
 
-**Opción 2: Usar delimitadores de tests ocultos**
+1. Abre el notebook fuente en Jupyter Notebook (NO en Colab)
+2. Selecciona la celda de test
+3. Click: `View` → `Cell Toolbar` → `Edit Metadata`
+4. Click en `Edit Metadata` en la celda
+5. Edita el JSON y asegúrate de tener `"locked": true`
+6. Guarda los cambios
 
-Para ocultar solo PARTE de los tests, usa comentarios especiales:
+**3. Verificar ANTES de generar el assignment:**
+
+El notebook optimizado incluye una **celda de verificación (Celda 8.1)** que revisa automáticamente si las celdas están correctamente configuradas:
 
 ```python
-# Test visible para estudiantes (ejemplo básico)
+# Ejecuta la celda 8.1 para verificar
+# Te mostrará:
+# ✅ Celdas correctamente bloqueadas
+# ❌ Celdas con problemas (te dirá cuáles arreglar)
+```
+
+**4. Resultado esperado:**
+
+**Con `locked: true`:**
+- ✅ Los estudiantes NO verán el código del test
+- ✅ Solo verán: "Test test_suma: PASSED (10/10 points)" o "FAILED (0/10 points)"
+- ✅ Verán los puntos obtenidos pero no cómo se calculan
+
+**Sin `locked: true`:**
+- ❌ Los estudiantes VERÁN todo el código: `assert suma(2,3) == 5`
+- ❌ Pueden copiar las respuestas directamente
+- ❌ La evaluación no tiene sentido
+
+---
+
+**MÉTODO ALTERNATIVO: Usar delimitadores para tests parcialmente ocultos**
+
+Si quieres mostrar ALGUNOS tests pero ocultar otros:
+
+```python
+# Tests visibles (los estudiantes verán estos)
 assert resultado > 0, "El resultado debe ser positivo"
 
 # BEGIN HIDDEN TESTS
-# Tests ocultos - los estudiantes NO los verán
+# Tests ocultos - SOLO estos se ocultan
 assert resultado == 42, "Valor específico incorrecto"
 assert type(resultado) == int, "Tipo de dato incorrecto"
 # END HIDDEN TESTS
 ```
 
-**Resultado en el feedback:**
-- ✅ Los estudiantes ven: "❌ Test falló (0/10 puntos)"
-- ✅ NO ven el código del test
-- ✅ Solo ven que algo falló, pero no qué exactamente
+**IMPORTANTE:** Aún así la celda debe tener `"locked": true` para que funcione correctamente.
+
+---
+
+**⚠️ Advertencias:**
+
+1. **Google Colab no permite editar metadatos fácilmente** - Usa Jupyter local para crear el assignment
+2. **Verifica SIEMPRE con la celda 8.1** antes de generar el assignment
+3. **Si ya generaste el assignment sin `locked: true`**, debes:
+   - Corregir los metadatos en el notebook fuente
+   - Re-ejecutar la celda 19 (Generar Assignment)
+   - Re-distribuir el notebook a los estudiantes
 
 **⚠️ Importante:**
 - Los delimitadores `BEGIN HIDDEN TESTS` y `END HIDDEN TESTS` deben estar en **comentarios**
