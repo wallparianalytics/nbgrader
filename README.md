@@ -32,11 +32,14 @@ Sistema **completamente dinámico y configurable** para calificar notebooks de J
 1. Abre `nbgrader_optimizado.ipynb` en Google Colab
 2. Ejecuta las celdas en orden
 3. Ingresa cuando se pida:
-   - Nombre del curso (ej: `Python_2024`)
-   - ID del assignment (ej: `Tarea1`)
-   - Ruta en Google Drive
+   - **Base Path** - Carpeta principal (ej: `/content/drive/MyDrive/nbgrader`)
+   - **Course ID** - Nombre del curso (ej: `Python_2024`)
+   - **Assignment ID** - ID de la tarea (ej: `Tarea1`)
+   - **Timeout** - Presiona ENTER para usar 180s
 4. Sube el CSV con estudiantes
 5. ¡Listo! El sistema está configurado
+
+> Se creará automáticamente: `{BASE_PATH}/{COURSE_ID}/`
 
 ---
 
@@ -46,16 +49,29 @@ Sistema **completamente dinámico y configurable** para calificar notebooks de J
 
 | Parámetro | Ejemplo | Descripción |
 |-----------|---------|-------------|
-| **Course ID** | `Python_AP` | Identificador del curso |
+| **Base Path** | `/content/drive/MyDrive/nbgrader` | Carpeta principal para **TODOS** tus cursos |
+| **Course ID** | `Python_AP` | Identificador del curso (se crea como subcarpeta) |
 | **Assignment ID** | `S01_D02_A02` | Identificador de la tarea |
-| **Base Path** | `/content/drive/MyDrive/nbgrader_Python` | Ruta donde se guardan archivos |
 | **Timeout** | `180` | Segundos máximo de ejecución |
 | **CSV Estudiantes** | `estudiantes.csv` | Archivo con lista de estudiantes |
+
+### Estructura resultante:
+
+```
+BASE_PATH/                           # ej: /content/drive/MyDrive/nbgrader
+└── COURSE_ID/                       # ej: Python_AP
+    ├── source/                      # Notebooks maestros
+    ├── release/                     # Para estudiantes
+    ├── submitted/                   # Entregas
+    ├── autograded/                  # Calificados
+    └── feedback/                    # Feedback HTML
+```
 
 ### Ventajas:
 
 ✅ **Sin hardcodeo** - No hay valores fijos en el código
 ✅ **Reutilizable** - Mismo notebook para todos tus cursos
+✅ **Múltiples cursos** - Todos organizados en un solo lugar
 ✅ **Flexible** - Cambia parámetros en cada ejecución
 ✅ **Validado** - Verifica que los valores sean correctos
 
@@ -105,44 +121,73 @@ Este sistema permite automatizar la calificación de tareas (assignments) de Jup
 
 ### Paso 2: Configuración dinámica
 
-El notebook te pedirá los siguientes valores:
+El notebook te pedirá los siguientes valores **en este orden**:
 
-1. **Course ID** - Ej: `Python_2024`, `DataScience_101`
-2. **Assignment ID** - Ej: `Tarea1`, `Parcial_Final`
-3. **Base Path** - Ruta en Google Drive donde guardar archivos
+1. **Base Path** - Carpeta principal para TODOS tus cursos
+   - Ej: `/content/drive/MyDrive/nbgrader`
+   - Ej: `/content/drive/MyDrive/Cursos`
+
+2. **Course ID** - Nombre del curso (se crea dentro de Base Path)
+   - Ej: `Python_2024`, `DataScience_101`
+   - Se creará: `{BASE_PATH}/Python_2024/`
+
+3. **Assignment ID** - Nombre de la tarea
+   - Ej: `Tarea1`, `Parcial_Final`, `S01_D02_A02`
+
 4. **Timeout** - Segundos máximos de ejecución (default: 180)
 
 **El sistema automáticamente:**
+- Construye la ruta completa: `{BASE_PATH}/{COURSE_ID}/`
 - Genera `nbgrader_config.py` con tu configuración
 - Crea la estructura de directorios
 - Valida que los valores sean correctos
 
 ### Paso 3: Estructura de directorios (generada automáticamente)
 
-El sistema creará automáticamente esta estructura en tu ruta especificada:
+El sistema creará automáticamente esta estructura:
 
 ```
-{TU_BASE_PATH}/                    # Ej: /content/drive/MyDrive/nbgrader_Python_2024
-├── source/                        # Notebooks maestros del instructor
-│   └── {ASSIGNMENT_ID}/
-│       └── {ASSIGNMENT_ID}.ipynb
-├── release/                       # Versión para estudiantes (auto-generada)
-│   └── {ASSIGNMENT_ID}/
-│       └── {ASSIGNMENT_ID}.ipynb
-├── submitted/                     # Submissions de estudiantes
-│   ├── {Estudiante1}/
-│   │   └── {ASSIGNMENT_ID}/
-│   │       └── {ASSIGNMENT_ID}.ipynb
-│   └── {Estudiante2}/
-│       └── {ASSIGNMENT_ID}/
-│           └── {ASSIGNMENT_ID}.ipynb
-├── autograded/                    # Notebooks calificados (auto-generado)
-│   ├── {Estudiante1}/
-│   └── {Estudiante2}/
-└── feedback/                      # Feedback en HTML (auto-generado)
-    ├── {Estudiante1}/
-    └── {Estudiante2}/
+{BASE_PATH}/                       # Ej: /content/drive/MyDrive/nbgrader
+└── {COURSE_ID}/                   # Ej: Python_2024
+    ├── source/                    # Notebooks maestros del instructor
+    │   └── {ASSIGNMENT_ID}/
+    │       └── {ASSIGNMENT_ID}.ipynb
+    ├── release/                   # Versión para estudiantes (auto-generada)
+    │   └── {ASSIGNMENT_ID}/
+    │       └── {ASSIGNMENT_ID}.ipynb
+    ├── submitted/                 # Submissions de estudiantes
+    │   ├── {Estudiante1}/
+    │   │   └── {ASSIGNMENT_ID}/
+    │   │       └── {ASSIGNMENT_ID}.ipynb
+    │   └── {Estudiante2}/
+    │       └── {ASSIGNMENT_ID}/
+    │           └── {ASSIGNMENT_ID}.ipynb
+    ├── autograded/                # Notebooks calificados (auto-generado)
+    │   ├── {Estudiante1}/
+    │   └── {Estudiante2}/
+    └── feedback/                  # Feedback en HTML (auto-generado)
+        ├── {Estudiante1}/
+        └── {Estudiante2}/
 ```
+
+**Ejemplo concreto:**
+```
+/content/drive/MyDrive/nbgrader/
+├── Python_2024/
+│   ├── source/
+│   ├── release/
+│   └── ...
+├── DataScience_2024/
+│   ├── source/
+│   ├── release/
+│   └── ...
+└── MachineLearning_2024/
+    ├── source/
+    ├── release/
+    └── ...
+```
+
+> ✅ **Ventaja:** Todos tus cursos organizados en un solo lugar
 
 ### Paso 4: Configurar `nbgrader_config.py`
 
