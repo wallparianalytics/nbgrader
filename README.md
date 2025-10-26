@@ -549,33 +549,61 @@ Notebook principal con todas las funcionalidades integradas.
 
 **Síntoma:** Warning al ejecutar comandos de nbgrader: `[WARNING] No nbgrader_config.py file found`
 
-**Causa:** NBGrader no encuentra el archivo de configuración en el directorio desde donde se ejecutan los comandos.
+**⚠️ IMPORTANTE:** Este warning es **INFORMATIVO** y generalmente **NO impide** que nbgrader funcione.
 
-**Solución automática (RECOMENDADO):**
+---
 
-El notebook optimizado **ya soluciona este problema automáticamente**:
-- La celda 4 genera `nbgrader_config.py` en **dos ubicaciones**:
-  1. `/content/nbgrader_config.py` (para referencia)
-  2. `{BASE_PATH}/nbgrader_config.py` (donde nbgrader lo busca)
-- Todas las celdas que ejecutan comandos nbgrader cambian automáticamente al directorio del curso antes de ejecutar
+**¿Por qué aparece?**
 
-**Si aún ves el warning:**
+NBGrader busca `nbgrader_config.py` en múltiples ubicaciones. Cuando no lo encuentra en todas, muestra el warning, **PERO** sigue usando la configuración definida en el código.
 
-1. **Re-ejecuta la celda 4** para regenerar el archivo de configuración
-2. **Verifica que el archivo existe:**
-   ```python
-   import os
-   config_path = os.path.join(BASE_PATH, 'nbgrader_config.py')
-   print(f"Config existe: {os.path.exists(config_path)}")
-   print(f"Ruta: {config_path}")
-   ```
+**¿Es realmente un problema?**
 
-3. **Verifica el contenido del archivo:**
-   ```python
-   !cat {config_path} | head -20
-   ```
+**❌ SÍ es problema si:**
+- Los comandos de nbgrader **fallan** después del warning
+- No se crean archivos en los directorios esperados
 
-**Nota:** Aunque veas el warning, si el archivo existe en `{BASE_PATH}/nbgrader_config.py`, los comandos deberían funcionar correctamente porque las celdas cambian automáticamente al directorio del curso.
+**✅ NO es problema si:**
+- Los comandos de nbgrader **completan exitosamente**
+- Se crean archivos correctamente
+- El sistema funciona como se espera
+
+**En la mayoría de casos, puedes IGNORAR este warning con seguridad.**
+
+---
+
+**Verificación rápida:**
+
+Ejecuta la **celda 4.1** (Diagnóstico de nbgrader_config.py) para ver si el archivo existe:
+
+```
+✅ EXISTE - /content/nbgrader_config.py
+✅ EXISTE - {BASE_PATH}/nbgrader_config.py
+```
+
+**Si ambos dicen "✅ EXISTE":**
+- 👍 Todo está correcto
+- 👍 El warning es solo informativo
+- 👍 Puedes ignorarlo con seguridad
+
+**Si dice "❌ NO EXISTE":**
+- ⚠️ Re-ejecuta la **celda 4** para regenerar el archivo
+
+---
+
+**Solución automática (YA IMPLEMENTADA):**
+
+El notebook **ya maneja esto automáticamente**:
+1. La celda 4 genera el archivo en dos ubicaciones
+2. Todas las celdas cambian al directorio correcto antes de ejecutar
+3. La celda 4.1 te permite verificar si todo está bien
+
+**Resumen:**
+| Situación | Acción |
+|-----------|--------|
+| Warning + comando funciona | Ignorar |
+| Warning + comando falla | Re-ejecutar celda 4 |
+| Archivo existe en BASE_PATH | Todo bien |
 
 ### Problema: "El feedback no se genera para algunos estudiantes"
 
