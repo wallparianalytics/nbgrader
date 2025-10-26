@@ -562,6 +562,75 @@ c.Execute.timeout = 300  # 5 minutos
 
 2. Reinicia el runtime
 
+### Problema: "Los puntajes exportados muestran 0 aunque los estudiantes hicieron bien el assignment"
+
+**Síntoma:** El CSV exportado muestra `score=0` para todos o algunos estudiantes, pero tú sabes que completaron el assignment correctamente.
+
+**Causas comunes:**
+1. El autograding no se ejecutó correctamente
+2. La base de datos de nbgrader no se actualizó
+3. Las celdas de test no tienen puntos asignados
+4. El comando export leyó una base de datos antigua
+
+**Soluciones:**
+
+1. **Verificar la base de datos:**
+   ```python
+   !nbgrader db assignment list
+   ```
+   Si no ves tu assignment o muestra puntajes 0, hay un problema con el autograding.
+
+2. **Re-ejecutar el autograding con --force:**
+
+   Usa la **celda 11.1 "Diagnóstico y Corrección de Puntajes"** del notebook optimizado, que incluye:
+   - Verificación de la base de datos
+   - Re-autograding con debug para detectar errores
+   - Herramientas para diagnosticar problemas específicos
+
+   O manualmente:
+   ```python
+   !nbgrader autograde '{ASSIGNMENT_ID}' --student '{estudiante}' --force --debug
+   ```
+
+3. **Verificar que las celdas de test tienen puntos:**
+
+   Abre el notebook source y verifica que cada celda de test tenga:
+   ```json
+   {
+     "nbgrader": {
+       "grade": true,
+       "points": 10,  // ← ESTO DEBE ESTAR CONFIGURADO
+       "locked": true
+     }
+   }
+   ```
+
+4. **Limpiar y empezar de nuevo:**
+
+   Si nada funciona, limpia la base de datos y re-autograde:
+   ```python
+   # Eliminar base de datos
+   import os
+   db_path = os.path.join(BASE_PATH, 'gradebook.db')
+   if os.path.exists(db_path):
+       os.remove(db_path)
+
+   # Re-ejecutar celda 22 (Autograding Masivo)
+   # Re-ejecutar celda 26 (Exportar Notas)
+   ```
+
+5. **Verificar archivos autograded:**
+
+   Asegúrate de que existen notebooks en `autograded/{estudiante}/{ASSIGNMENT_ID}/`:
+   ```python
+   !ls -la {DIRS['autograded']}/{estudiante}/{ASSIGNMENT_ID}/
+   ```
+
+**Prevención:**
+- Siempre verifica la salida de la celda 22 (Autograding) para confirmar que no hubo errores
+- Usa la verificación de base de datos integrada en la celda 26 (Export)
+- Ejecuta la celda 11.1 de diagnóstico si ves advertencias de puntajes en 0
+
 ---
 
 ## ❓ Preguntas Frecuentes
