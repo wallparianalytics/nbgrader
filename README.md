@@ -1,9 +1,20 @@
 # Sistema de Calificación Automatizada con NBGrader
 
-Sistema automatizado para calificar notebooks de Jupyter usando NBGrader en Google Colab.
+Sistema **completamente dinámico y configurable** para calificar notebooks de Jupyter usando NBGrader en Google Colab.
+
+## ⭐ Características Principales
+
+🎯 **100% Dinámico** - Configura cualquier curso, assignment y estudiantes
+📊 **Carga desde CSV** - Lista de estudiantes desde archivo editable
+⚡ **Configuración automática** - Genera `nbgrader_config.py` automáticamente
+✅ **Validación inteligente** - Detecta errores en nombres y configuración
+📈 **Reportes completos** - Estadísticas y resúmenes detallados
+🛠️ **Utilidades integradas** - Mantenimiento y limpieza de archivos
 
 ## 📋 Tabla de Contenidos
 
+- [Inicio Rápido](#inicio-rápido)
+- [Configuración Dinámica](#configuración-dinámica)
 - [Descripción General](#descripción-general)
 - [Requisitos Previos](#requisitos-previos)
 - [Instalación y Configuración](#instalación-y-configuración)
@@ -16,17 +27,53 @@ Sistema automatizado para calificar notebooks de Jupyter usando NBGrader en Goog
 
 ---
 
+## 🚀 Inicio Rápido
+
+1. Abre `nbgrader_optimizado.ipynb` en Google Colab
+2. Ejecuta las celdas en orden
+3. Ingresa cuando se pida:
+   - Nombre del curso (ej: `Python_2024`)
+   - ID del assignment (ej: `Tarea1`)
+   - Ruta en Google Drive
+4. Sube el CSV con estudiantes
+5. ¡Listo! El sistema está configurado
+
+---
+
+## ⚙️ Configuración Dinámica
+
+### El sistema te pedirá:
+
+| Parámetro | Ejemplo | Descripción |
+|-----------|---------|-------------|
+| **Course ID** | `Python_AP` | Identificador del curso |
+| **Assignment ID** | `S01_D02_A02` | Identificador de la tarea |
+| **Base Path** | `/content/drive/MyDrive/nbgrader_Python` | Ruta donde se guardan archivos |
+| **Timeout** | `180` | Segundos máximo de ejecución |
+| **CSV Estudiantes** | `estudiantes.csv` | Archivo con lista de estudiantes |
+
+### Ventajas:
+
+✅ **Sin hardcodeo** - No hay valores fijos en el código
+✅ **Reutilizable** - Mismo notebook para todos tus cursos
+✅ **Flexible** - Cambia parámetros en cada ejecución
+✅ **Validado** - Verifica que los valores sean correctos
+
+---
+
 ## 📖 Descripción General
 
 Este sistema permite automatizar la calificación de tareas (assignments) de Jupyter Notebook usando **NBGrader**, con las siguientes características:
 
-✅ Carga de estudiantes desde archivo CSV
-✅ Calificación masiva automatizada
-✅ Generación automática de feedback en HTML
-✅ Exportación de calificaciones a CSV
-✅ Validación de nombres (sin acentos)
-✅ Reportes de errores y estadísticas
-✅ Utilidades de mantenimiento integradas
+✅ **Configuración dinámica** - Cualquier curso, assignment y estudiantes
+✅ **Carga desde CSV** - Lista de estudiantes desde archivo editable
+✅ **Generación automática de config** - Crea `nbgrader_config.py` con tus valores
+✅ **Calificación masiva** - Califica todos los estudiantes automáticamente
+✅ **Feedback en HTML** - Genera feedback personalizado para cada estudiante
+✅ **Export a CSV** - Exporta calificaciones listas para importar
+✅ **Validación inteligente** - Detecta nombres con acentos y errores
+✅ **Reportes detallados** - Estadísticas y resúmenes de calificación
+✅ **Utilidades de mantenimiento** - Limpieza y gestión de archivos
 
 ---
 
@@ -56,43 +103,58 @@ Este sistema permite automatizar la calificación de tareas (assignments) de Jup
    - `nbclient==0.6.1`
    - `nbgrader==0.8.1`
 
-### Paso 2: Estructura de directorios
+### Paso 2: Configuración dinámica
 
-El sistema creará automáticamente la siguiente estructura en Google Drive:
+El notebook te pedirá los siguientes valores:
+
+1. **Course ID** - Ej: `Python_2024`, `DataScience_101`
+2. **Assignment ID** - Ej: `Tarea1`, `Parcial_Final`
+3. **Base Path** - Ruta en Google Drive donde guardar archivos
+4. **Timeout** - Segundos máximos de ejecución (default: 180)
+
+**El sistema automáticamente:**
+- Genera `nbgrader_config.py` con tu configuración
+- Crea la estructura de directorios
+- Valida que los valores sean correctos
+
+### Paso 3: Estructura de directorios (generada automáticamente)
+
+El sistema creará automáticamente esta estructura en tu ruta especificada:
 
 ```
-/content/drive/MyDrive/nbgrader_PAGD1_14123/
-├── source/              # Notebooks maestros del instructor
-│   └── S01_D02_A02/
-│       └── S01_D02_A02.ipynb
-├── release/             # Versión para estudiantes (auto-generada)
-│   └── S01_D02_A02/
-│       └── S01_D02_A02.ipynb
-├── submitted/           # Submissions de estudiantes
-│   ├── Estudiante1/
-│   │   └── S01_D02_A02/
-│   │       └── S01_D02_A02.ipynb
-│   └── Estudiante2/
-│       └── S01_D02_A02/
-│           └── S01_D02_A02.ipynb
-├── autograded/          # Notebooks calificados (auto-generado)
-│   ├── Estudiante1/
-│   └── Estudiante2/
-└── feedback/            # Feedback en HTML (auto-generado)
-    ├── Estudiante1/
-    └── Estudiante2/
+{TU_BASE_PATH}/                    # Ej: /content/drive/MyDrive/nbgrader_Python_2024
+├── source/                        # Notebooks maestros del instructor
+│   └── {ASSIGNMENT_ID}/
+│       └── {ASSIGNMENT_ID}.ipynb
+├── release/                       # Versión para estudiantes (auto-generada)
+│   └── {ASSIGNMENT_ID}/
+│       └── {ASSIGNMENT_ID}.ipynb
+├── submitted/                     # Submissions de estudiantes
+│   ├── {Estudiante1}/
+│   │   └── {ASSIGNMENT_ID}/
+│   │       └── {ASSIGNMENT_ID}.ipynb
+│   └── {Estudiante2}/
+│       └── {ASSIGNMENT_ID}/
+│           └── {ASSIGNMENT_ID}.ipynb
+├── autograded/                    # Notebooks calificados (auto-generado)
+│   ├── {Estudiante1}/
+│   └── {Estudiante2}/
+└── feedback/                      # Feedback en HTML (auto-generado)
+    ├── {Estudiante1}/
+    └── {Estudiante2}/
 ```
 
-### Paso 3: Configurar `nbgrader_config.py`
+### Paso 4: Configurar `nbgrader_config.py`
 
-El archivo de configuración debe estar en `/content/` con:
+**No necesitas editarlo manualmente.** El notebook genera automáticamente este archivo con tus valores:
 
 ```python
-c.CourseDirectory.root = '/content/drive/MyDrive/nbgrader_PAGD1_14123'
-c.CourseDirectory.course_id = 'Python_AP'
+c.CourseDirectory.root = '{TU_BASE_PATH}'
+c.Execute.timeout = {TU_TIMEOUT}
+# ... y todas las demás configuraciones
 ```
 
-> ✅ Este archivo ya está incluido en el repositorio
+> ✅ El archivo `nbgrader_config.py` incluido en el repo es solo un template de referencia
 
 ---
 
