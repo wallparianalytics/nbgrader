@@ -260,7 +260,57 @@ Asencios_Clavijo_Gabriela_Shumey
 }
 ```
 
-4. Guarda el notebook como: `source/S01_D02_A02/S01_D02_A02.ipynb`
+4. Guarda el notebook como: `source/{ASSIGNMENT_ID}/{ASSIGNMENT_ID}.ipynb`
+
+#### 🔒 Ocultar Tests a los Estudiantes
+
+**IMPORTANTE:** Para que los estudiantes NO vean el código de los tests en el feedback:
+
+**Opción 1: Marcar toda la celda como Grade Cell (Recomendado)**
+
+En los metadatos de la celda, marca `"grade": true` y `"locked": true`:
+
+```json
+{
+  "nbgrader": {
+    "grade": true,
+    "grade_id": "test_suma",
+    "locked": true,
+    "points": 10,
+    "solution": false
+  }
+}
+```
+
+**Con esta configuración:**
+- ✅ Los estudiantes NO verán el código del test
+- ✅ Solo verán si pasó o falló el test
+- ✅ Verán los puntos obtenidos
+
+**Opción 2: Usar delimitadores de tests ocultos**
+
+Para ocultar solo PARTE de los tests, usa comentarios especiales:
+
+```python
+# Test visible para estudiantes (ejemplo básico)
+assert resultado > 0, "El resultado debe ser positivo"
+
+# BEGIN HIDDEN TESTS
+# Tests ocultos - los estudiantes NO los verán
+assert resultado == 42, "Valor específico incorrecto"
+assert type(resultado) == int, "Tipo de dato incorrecto"
+# END HIDDEN TESTS
+```
+
+**Resultado en el feedback:**
+- ✅ Los estudiantes ven: "❌ Test falló (0/10 puntos)"
+- ✅ NO ven el código del test
+- ✅ Solo ven que algo falló, pero no qué exactamente
+
+**⚠️ Importante:**
+- Los delimitadores `BEGIN HIDDEN TESTS` y `END HIDDEN TESTS` deben estar en **comentarios**
+- Todo el código entre estos delimitadores se elimina antes de generar el feedback
+- Usa la Opción 1 si quieres ocultar TODO el test (más simple)
 
 ### 2️⃣ Preparar Lista de Estudiantes
 

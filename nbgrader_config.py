@@ -58,11 +58,18 @@ c.ClearSolutions.code_stub = {
 ## Texto para respuestas escritas (markdown)
 c.ClearSolutions.text_stub = 'YOUR ANSWER HERE'
 
-## Delimitadores para tests ocultos
+## Delimitadores para tests ocultos (NO visibles para estudiantes)
+## Los tests entre estos delimitadores se ocultan en el feedback
+## Ejemplo en una celda de test:
+##   assert respuesta == 42
+##   # BEGIN HIDDEN TESTS
+##   assert respuesta_secreta == 100
+##   # END HIDDEN TESTS
 c.ClearHiddenTests.begin_test_delimeter = 'BEGIN HIDDEN TESTS'
 c.ClearHiddenTests.end_test_delimeter = 'END HIDDEN TESTS'
 
 ## NO validar metadatos estrictamente (más flexibilidad)
+## Si es False, permite tests ocultos sin metadatos especiales
 c.ClearHiddenTests.enforce_metadata = False
 
 # ----------------------------------------------------------------------------
