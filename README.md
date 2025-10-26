@@ -502,13 +502,35 @@ Notebook principal con todas las funcionalidades integradas.
 
 ### Problema: "No nbgrader_config.py file found"
 
-**Solución:**
-1. Verifica que `nbgrader_config.py` esté en `/content/`
-2. Copia el archivo de configuración a la ubicación correcta:
+**Síntoma:** Warning al ejecutar comandos de nbgrader: `[WARNING] No nbgrader_config.py file found`
 
-```python
-!cp /content/drive/MyDrive/tu_carpeta/nbgrader_config.py /content/
-```
+**Causa:** NBGrader no encuentra el archivo de configuración en el directorio desde donde se ejecutan los comandos.
+
+**Solución automática (RECOMENDADO):**
+
+El notebook optimizado **ya soluciona este problema automáticamente**:
+- La celda 4 genera `nbgrader_config.py` en **dos ubicaciones**:
+  1. `/content/nbgrader_config.py` (para referencia)
+  2. `{BASE_PATH}/nbgrader_config.py` (donde nbgrader lo busca)
+- Todas las celdas que ejecutan comandos nbgrader cambian automáticamente al directorio del curso antes de ejecutar
+
+**Si aún ves el warning:**
+
+1. **Re-ejecuta la celda 4** para regenerar el archivo de configuración
+2. **Verifica que el archivo existe:**
+   ```python
+   import os
+   config_path = os.path.join(BASE_PATH, 'nbgrader_config.py')
+   print(f"Config existe: {os.path.exists(config_path)}")
+   print(f"Ruta: {config_path}")
+   ```
+
+3. **Verifica el contenido del archivo:**
+   ```python
+   !cat {config_path} | head -20
+   ```
+
+**Nota:** Aunque veas el warning, si el archivo existe en `{BASE_PATH}/nbgrader_config.py`, los comandos deberían funcionar correctamente porque las celdas cambian automáticamente al directorio del curso.
 
 ### Problema: "El feedback no se genera para algunos estudiantes"
 
